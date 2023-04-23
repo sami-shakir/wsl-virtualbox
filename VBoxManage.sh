@@ -16,9 +16,9 @@ for argument; do
     is_next_path=1
   elif [ $is_next_path = 1 ]; then
     # Packer tries to create floppy in the linux /tmp folder which is not representable in Windows. Replace it with direct storage path
-    if [[ $argument == /tmp/* ]]; then
-      argument="$wslroot/rootfs$argument"
-    fi
+    # if [[ $argument == /tmp/* ]]; then
+    #   argument="$wslroot/ext4$argument"
+    # fi
     # Convert WSL paths to Windows path
     argument=$(wslpath -w "$argument")
     is_next_path=0
