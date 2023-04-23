@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Get WSL Instance
+wslid=$(reg.exe query "HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss" /s /f CanonicalGroupLimited | grep -oP '{[^}]+}')
+
 # Get path for WSL storage
-wslroot=$(wslpath $(reg.exe query "HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss" /s /v BasePath | awk 'BEGIN { FS = "[ \t]+" } ; /BasePath/{print $4}' | tr -d "[:cntrl:]"))
+wslroot=$(wslpath $(reg.exe query "HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss\\${wslid}" /s /v BasePath | awk 'BEGIN { FS = "[ \t]+" } ; /BasePath/{print $4}' | tr -d "[:cntrl:]"))
 
 # Initialize defaults
 is_next_path=0
